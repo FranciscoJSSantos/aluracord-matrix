@@ -1,36 +1,7 @@
 import { Box, Button, Text, TextField, Image } from "@skynexui/components";
+import React from 'react';
+import { useRouter } from 'next/router';
 import appConfig from "../config.json";
-
-function GlobalStyle() {
-  return (
-    <style global jsx>{`
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        list-style: none;
-      }
-      body {
-        font-family: "Open Sans", sans-serif;
-      }
-      /* App fit Height */
-      html,
-      body,
-      #__next {
-        min-height: 100vh;
-        display: flex;
-        flex: 1;
-      }
-      #__next {
-        flex: 1;
-      }
-      #__next > * {
-        flex: 1;
-      }
-      /* ./App fit Height */
-    `}</style>
-  );
-}
 
 function Titulo(props) {
   const Tag = props.tag || "h1";
@@ -40,7 +11,7 @@ function Titulo(props) {
       <style jsx>
         {`
           ${Tag} {
-            color: ${appConfig.theme.colors.neutrals["900"]};
+            color: ${appConfig.theme.colors.neutrals["000"]};
             font-size: 24px;
             font-weight: 600;
           }
@@ -65,11 +36,30 @@ function Titulo(props) {
 // export default HomePage
 
 export default function PaginaInicial() {
-  const username = "FranciscoJSSantos";
+ // const username = "FranciscoJSSantos";
+ // $`{username}`
+  const [username, setUsername] = React.useState('FranciscoJSSantos');
+  const roteamento = useRouter();
+  var mudancafoto = setUsername.length >= 2;
+
+  // const apiGitUrl = `https://api.github.com/users/${username}`;
+
+  // const infoGit = fetch(apiGitUrl)
+  //   .then(function (respostaDoServidor) {
+  //     return respostaDoServidor.json()
+  //   })
+  //   .then(function (respostaConvertida) {
+  //     return respostaConvertida;
+  //   })
+
+  // const testeGit = infoGit
+  //   .then(function (values) {
+  //     return values["bio"];
+  //   });
+
 
   return (
     <>
-      <GlobalStyle />
       <Box
         styleSheet={{
           display: "flex",
@@ -104,6 +94,10 @@ export default function PaginaInicial() {
           {/* Formulário */}
           <Box
             as="form"
+            onSubmit={function (infosDoEvento) {
+              infosDoEvento.preventDefault();
+              roteamento.push("/chat");
+            }}
             styleSheet={{
               display: "flex",
               flexDirection: "column",
@@ -114,7 +108,7 @@ export default function PaginaInicial() {
               marginBottom: "32px",
             }}
           >
-            <Titulo tag="h2">Boas vindas de volta!</Titulo>
+            <Titulo tag="h2">Boas vindos(as) de volta!</Titulo>
             <Text
               variant="body3"
               styleSheet={{
@@ -124,8 +118,31 @@ export default function PaginaInicial() {
             >
               {appConfig.name}
             </Text>
+            
 
-            <TextField
+           {/* <input 
+              type="text"
+              value={username}
+              onChange={function (event) {
+                console.log('usuario digitou', event.target.value);
+                // Onde ta o valor?
+                const valor = event.target.value;
+                // Trocar o valor da variável
+                // através do React e avise quem precisa
+                setUsername(valor);
+              }}
+              />*/}
+
+             <TextField
+             value={username}
+             onChange={function (event) {
+                // Onde ta o valor?
+                const valor = event.target.value;
+                // Trocar o valor da variável
+                // através do React e avise quem precisa
+                setUsername(valor);
+              }}
+              disabled={mudancafoto}
               fullWidth
               textFieldColors={{
                 neutral: {
@@ -136,6 +153,7 @@ export default function PaginaInicial() {
                 },
               }}
             />
+              
             <Button
               type="submit"
               label="Entrar"
