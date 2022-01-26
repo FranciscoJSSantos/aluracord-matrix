@@ -34,9 +34,7 @@ export default function ChatPage() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: appConfig.theme.colors.primary[500],
-        backgroundImage: `url(https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg)`,
-        backgroundRepeat: "no-repeat",
+        backgroundImage: `url(https://wallpapercave.com/wp/wp8422895.jpg)`,
         backgroundSize: "cover",
         backgroundBlendMode: "multiply",
         color: appConfig.theme.colors.neutrals["000"],
@@ -112,7 +110,9 @@ export default function ChatPage() {
             />
             <Box>
               <Button
-                label="Enviar"
+                label="➤"
+                variant="secondary"
+                colorVariant="light"
                 onChange={(event) => {
                   const valor = event.target.value;
                   setMensagem(valor);
@@ -125,11 +125,11 @@ export default function ChatPage() {
                   width: "100%",
                   border: "0",
                   resize: "none",
-                  borderRadius: "5px",
-                  padding: "6px 8px",
-                  backgroundColor: appConfig.theme.colors.primary[500],
+                  borderRadius: "30px",
+                  padding: "10px 10px",
                   marginRight: "12px",
-                  color: appConfig.theme.colors.primary[100],
+                  marginBottom: "6px",
+                  fontSize: "15px"
                 }}
               />
             </Box>
