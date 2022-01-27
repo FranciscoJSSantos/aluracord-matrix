@@ -67,7 +67,7 @@ export default function ChatPage() {
             padding: "16px",
           }}
         >
-          <MessageList mensagens={listaDeMensagens} />
+          <MessageList mensagens={listaDeMensagens} setMensagens={setListaDeMensagens}/>
           {/* {listaDeMensagens.map((mensagemAtual) => {
                       return (
                         <li key={mensagemAtual.id}>
@@ -75,7 +75,6 @@ export default function ChatPage() {
                         </li>
                       )
                     })} */}
-
           <Box
             as="form"
             styleSheet={{
@@ -165,6 +164,17 @@ function Header() {
 }
 
 function MessageList(props) {
+
+  function handleDeleteMensagem(id){
+    //tem que usar o nome da variável prop que está usando em <MessageList mensagens={...} ...>
+    //aqui dentro do MessageList não existe listaMensagens
+    const listaMensagensFiltered = props.mensagens.filter(
+        messageFiltered =>  messageFiltered.id !== id
+        ); 
+    //tem que usar o nome da variável prop que está usando em <MessageList setMensagens={...} ...>
+    // aqui dentro do MessageList não existe setListaMensagens
+    props.setMensagens(listaMensagensFiltered);
+    }
   return (
     <Box
       tag="ul"
@@ -218,6 +228,26 @@ function MessageList(props) {
               >
                 {new Date().toLocaleDateString()}
               </Text>
+
+              <Button
+                label="X"
+                variant="primary"
+                colorVariant="negative"
+                onClick={(event) => {
+                  event.preventDefault();
+                  handleDeleteMensagem(mensagem.id);
+                }}
+                styleSheet={{
+                  width: "35px",
+                  border: "0",
+                  resize: "none",
+                  borderRadius: "30px",
+                  padding: "1px",
+                  marginRight: "25px",
+                  marginBottom: "6px",
+                  marginLeft: "8px",
+                }}
+              />          
             </Box>
             {mensagem.texto}
           </Text>
