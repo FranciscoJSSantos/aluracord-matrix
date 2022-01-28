@@ -38,9 +38,10 @@ function Titulo(props) {
 export default function PaginaInicial() {
  // const username = "FranciscoJSSantos";
  // $`{username}`
-  const [username, setUsername] = React.useState('FranciscoJSSantos');
+  const [username, setUsername] = React.useState('');
   const roteamento = useRouter();
-  var mudancafoto = setUsername.length >= 2;
+  var showPicture = username.length >= 1;
+  // console.log('tamanho',username.length);
 
   // const apiGitUrl = `https://api.github.com/users/${username}`;
 
@@ -94,7 +95,7 @@ export default function PaginaInicial() {
             as="form"
             onSubmit={function (infosDoEvento) {
               infosDoEvento.preventDefault();
-              roteamento.push("/chat");
+              roteamento.push(`/chat?username=${username}`);
             }}
             styleSheet={{
               display: "flex",
@@ -140,7 +141,6 @@ export default function PaginaInicial() {
                 // através do React e avise quem precisa
                 setUsername(valor);
               }}
-              disabled={mudancafoto}
               fullWidth
               textFieldColors={{
                 neutral: {
@@ -182,14 +182,17 @@ export default function PaginaInicial() {
               minHeight: "240px",
             }}
           >
-            <Image
+            {showPicture     
+            ?(
+              <>
+              <Image
               styleSheet={{
                 borderRadius: "50%",
                 marginBottom: "16px",
               }}
               src={`https://github.com/${username}.png`}
-            />
-            <Text
+              />
+              <Text
               variant="body4"
               styleSheet={{
                 color: appConfig.theme.colors.neutrals[200],
@@ -200,6 +203,12 @@ export default function PaginaInicial() {
             >
               {username}
             </Text>
+            </>
+            )  
+            : (
+              <></>
+            ) 
+            }
           </Box>
           {/* Photo Area */}
         </Box>
